@@ -22,6 +22,10 @@ if(!empty($dom)) {
         foreach($divClass->find('.attachment-magazinevibe_edge_search_page_image') as $urlimg) {
             $answer[$i]['urlimg'] = $urlimg->src;
         }
+
+        foreach($divClass->find('h5.edgtf-peis-title a') as $urlarticle) {
+            $answer[$i]['urlarticle'] = $urlarticle->href;
+        }
         $i++;
     }
 }
