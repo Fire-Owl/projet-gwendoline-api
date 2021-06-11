@@ -6,7 +6,7 @@ $dom = file_get_html('https://www.sportmag.fr/category/sport-handi/', false);
 $answer = array();
 if(!empty($dom)) {
     $divClass = $title = $i = 0;
-    foreach($dom->find(".edgtf-peis-content-holder") as $divClass) {
+    foreach($dom->find(".edgtf-peis-item") as $divClass) {
         foreach($divClass->find(".edgtf-peis-title") as $title ) {
             $answer[$i]['title'] = $title->plaintext;
         }
@@ -18,10 +18,15 @@ if(!empty($dom)) {
         foreach($divClass->find('.edgtf-post-excerpt') as $desc) {
             $answer[$i]['content'] = $desc->plaintext;
         }
+
+        foreach($divClass->find('.attachment-magazinevibe_edge_search_page_image') as $urlimg) {
+            $answer[$i]['urlimg'] = $urlimg->src;
+        }
         $i++;
     }
 }
 
+/* print_r($answer[0]['title']); exit; */
 print_r($answer); exit;
 
 function array_to_xml($array, &$xml_user_info) {
