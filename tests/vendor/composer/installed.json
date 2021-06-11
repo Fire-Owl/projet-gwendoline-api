@@ -1,0 +1,60 @@
+{
+    "packages": [
+        {
+            "name": "fizzka/extractor",
+            "version": "0.3.5",
+            "version_normalized": "0.3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fizzka/extractor.git",
+                "reference": "572cd2f3b65f050d54335ad0061b429246845e40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fizzka/extractor/zipball/572cd2f3b65f050d54335ad0061b429246845e40",
+                "reference": "572cd2f3b65f050d54335ad0061b429246845e40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "time": "2019-03-13T22:38:19+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/Extractor.php",
+                    "src/XpathSubquery.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "fizzka",
+                    "email": "fizz@pisem.net",
+                    "role": "developer"
+                }
+            ],
+            "description": "HTML Parser",
+            "keywords": [
+                "extractor",
+                "html",
+                "parse",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/fizzka/extractor/issues",
+                "source": "https://github.com/fizzka/extractor/tree/master"
+            },
+            "install-path": "../fizzka/extractor"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
