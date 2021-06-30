@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 
                 goalball[index]["thumbnail"] = $(element)
                     .find("a > div")
-                    .attr("style");
+                    .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
 
                 goalball[index]["date"] = $(element)
                     .find(".date-actu")
