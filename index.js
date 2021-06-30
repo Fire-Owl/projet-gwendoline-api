@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 
                 goalball[index]["description"] = $(element)
                     .find(".arch")
-                    .text()
+                    .text().replace(/\s\s+/g, '')
                     .trim();
 
             });
