@@ -1,9 +1,0 @@
-DEBUG:
-
-/!\ node address already in use
- 
-Pour voir les process node/nodemon : ps aux | grep node
-exemple: raphael+ 25092  0.0  0.4 875868 43072 ?        
-Sl   13:49   0:00 node /home/raphaeldorce/.nvm/versions/node/v14.16.1/bin/nodemon index.js
-
-Pour detruire le process node/nodemon: kill -9 XXXXX (ici 25092)
