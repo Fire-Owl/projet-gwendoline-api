@@ -27,7 +27,7 @@ app.get("/", (req, res) =>
       $(".edgtf-post-example-item-three-item").each(function (index, element) {
             country[index] = {};
             country[index]["thumbnail"] = $(element)
-                  .find(".edgtf-post-example-item-three-image-holder .edgtf-post-example-item-three-image-inner-holder img")
+                  .find("img")
                   .attr("href");
             country[index]["titre"] = $(element)
                   .find(".edgtf-peis-title")
