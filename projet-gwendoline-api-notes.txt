@@ -7,3 +7,10 @@ exemple: raphael+ 25092  0.0  0.4 875868 43072 ?
 Sl   13:49   0:00 node /home/raphaeldorce/.nvm/versions/node/v14.16.1/bin/nodemon index.js
 
 Pour detruire le process node/nodemon: kill -9 XXXXX (ici 25092)
+
+Faire attention à la classe de each pour bien selectionner les elements child
+On peut enchainer each pour avoir plusieurs child.
+
+
+Enlever la taille dans l'url avec slice
+console.log(str.slice(0,3) + str.slice(-4,str.length));
