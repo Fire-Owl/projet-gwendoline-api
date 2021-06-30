@@ -13,10 +13,10 @@ request(
           country[index] = {};
           country[index]["thumbnail"] = $(element)
                 .find("a > div")
-                .attr("style");
+                .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
             country[index]["accroche"] = $(element)
                   .find(".arch")
-                  .text()
+                  .text().replace(/\s\s+/g, ' ')
                   .trim();
             country[index]["lienarticle"] = $(element)
                   .find("a")
