@@ -1,7 +1,1 @@
-Scraping de http://www.handisport.org/?s=goalball
-
-Fonctionne!
-
-Problèmes à résoudre : 
-
-Enlever la chaine de caractères inutile en début de description
+Scrapper complet qui récupère le fil des articles Français en rapport avec le Goalball.
