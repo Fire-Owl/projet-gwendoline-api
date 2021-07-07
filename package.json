@@ -12,5 +12,9 @@
     "cheerio": "*",
     "express": "^4.17.1",
     "request": "^2.88.2"
+  },
+  "engines": {
+    "node": "16.1.0"
   }
+
 }
