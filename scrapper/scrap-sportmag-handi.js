@@ -42,9 +42,9 @@ app.get("/", (req, res) =>
             country[index]["lien"] = $(element)
                   .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
                   .attr("href");
-                  country[index]["thumbnail"] = $(element)
-                        .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > div:nth-child(2) > img:nth-child(1)")
-                        .attr("src");
+            country[index]["thumbnail"] = $(element)
+                  .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > div:nth-child(2) > img:nth-child(1)")
+                  .attr("src");
       });
 
       res.json(country);
