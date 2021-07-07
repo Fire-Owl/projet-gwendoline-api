@@ -3,53 +3,183 @@ const request = require('request');
 const cheerio = require('cheerio');
 const app = express();
 
+
+let promises = [];
+
+
 app.get('/', function (req, res) {
 
-    let url = 'http://www.handisport.org/?s=goalball';
+    // SPORTMAG.FR
 
-    request(url, function (error, response, html) {
-        if (!error) {
+    promises.push(
+        new Promise((resolve, reject) => {
+            request(
+                "https://www.sportmag.fr/sport-handi",
+                function (error, response, body) {
+                    if (error) {
+                        reject.send(response.statusCode);
+                    }
+                    let article = [];
+                    let $ = cheerio.load(body);
+                    $(".edgtf-post-example-item-three-item").each(function (index, element) {
+                        article[index] = {};
+                        article[index]["titre"] = $(element)
+                            .find("div.edgtf-post-example-item-three-item > div > div > h3:nth-child(1) > a:nth-child(1)")
+                            .text()
+                            .trim();
+                        article[index]["date"] = $(element)
+                            .find(".edgtf-post-info-date a span")
+                            .text();
+                        article[index]["accroche"] = $(element)
+                            .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
+                            .text();
+                        /* country[index]["auteur"] = $(element)
+                              .find(".edgtf-post-info-author-link")
+                              .attr("href"); */
+                        article[index]["lien"] = $(element)
+                            .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
+                            .attr("href");
+                        article[index]["thumbnail"] = $(element)
+                            .find("div:nth-child(1) > div:nth-child(2) img")
+                            .attr("data-lazy-src");
+                    });
 
-            let goalball = [];
-            let $ = cheerio.load(html);
+                    return resolve(article);
+                }
+            );
+        })
+    );
 
-            //slice() permet de récupérer un nombre limité d'articles
-            $(".col-md-4").slice(0, 4).each(function (index, element) {
-                goalball[index] = {};
-                goalball[index]["titre"] = $(element)
-                    .find("h2")
-                    .text()
-                    .trim();
+    /* SITE EN ANGLAIS - PAS PERTINENT
+    // PARALYMPIC.ORG
 
-                goalball[index]["lien"] = $(element)
-                    .find("a")
-                    .attr("href");
+    promises.push(
+        new Promise((resolve, reject) => {
+            request(
+                "https://www.paralympic.org/goalball/news",
+                function (error, response, body) {
+                    if (error) {
+                        reject.send(response.statusCode);
+                    }
+                    let article = [];
+                    let $ = cheerio.load(body);
+                    $("div.view-content > div > div").each(function (index, element) {
+                        article[index] = {};
+                        article[index]["link"] = $(element)
+                            .find("article > div > a")
+                            .attr("href");
+                    });
 
-                goalball[index]["thumbnail"] = $(element)
-                    .find("a > div")
-                    .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
+                    return resolve(article);
+                }
+            );
+        })
+    );
+    */
 
-                goalball[index]["date"] = $(element)
-                    .find(".date-actu")
-                    .text()
-                    .trim();
+    // HANDISPORT/GOALBALL
 
-                goalball[index]["description"] = $(element)
-                    .find("div.arch")
-                    .text().replace(/\s\s+/g, '')
-                    .trim();
+    promises.push(
+        new Promise((resolve, reject) => {
+            request(
+                "http://www.handisport.org/?s=goalball",
+                function (error, response, body) {
+                    if (error) {
+                        reject.send(response.statusCode);
+                    }
+                    let article = [];
+                    let $ = cheerio.load(body);
+                    $(".col-md-4").slice(0, 4).each(function (index, element) { //slice permet ici de récupérer seulement un certain nombre d'articles
+                        article[index] = {};
+                        article[index]["titre"] = $(element)
+                            .find("h2")
+                            .text()
+                            .trim();
 
-            });
+                        article[index]["lien"] = $(element)
+                            .find("a")
+                            .attr("href");
 
-            res.json(goalball);
+                        article[index]["thumbnail"] = $(element)
+                            .find("a > div")
+                            .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
 
-        }
-    });
+                        article[index]["date"] = $(element)
+                            .find(".date-actu")
+                            .text()
+                            .trim();
+
+                        article[index]["description"] = $(element)
+                            .find("div.arch")
+                            .text().replace(/\s\s+/g, '')
+                            .trim();
+
+                    });
+
+                    return resolve(article);
+                }
+            );
+        })
+    );
+
+    // HANDISPORT/EXPERTISE
+
+    promises.push(
+        new Promise((resolve, reject) => {
+            request(
+                "https://www.handisport.org/category/expertise/",
+                function (error, response, body) {
+                    if (error) {
+                        reject.send(response.statusCode);
+                    }
+                    let article = [];
+                    let $ = cheerio.load(body);
+                    $(".col-md-4").slice(0, 4).each(function (index, element) {
+                        article[index] = {};
+                        article[index]["titre"] = $(element)
+                            .find("h2")
+                            .text()
+                            .trim();
+
+                        article[index]["lien"] = $(element)
+                            .find("a")
+                            .attr("href");
+
+                        article[index]["thumbnail"] = $(element)
+                            .find("a > div")
+                            .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
+
+                        article[index]["date"] = $(element)
+                            .find(".date-actu")
+                            .text()
+                            .trim();
+
+                        article[index]["description"] = $(element)
+                            .find("div.arch")
+                            .text().replace(/\s\s+/g, '')
+                            .trim();
+
+                    });
+
+                    return resolve(article);
+                }
+            );
+        })
+    );
+
+    // REPONSE
+
+
+    Promise.all(promises)
+        .then((results) => {
+            res.json(results);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
 
 });
 
-
-
 app.listen('3000');
 console.log('API is running on http://localhost:3000'); module.exports = app;
-
