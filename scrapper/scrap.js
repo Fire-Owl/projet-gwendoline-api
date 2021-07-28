@@ -25,7 +25,7 @@ let promises = [];
                         }
                         let article = [];
                         let $ = cheerio.load(body);
-                        $("article").each(function (index, element) {
+                        $("article").slice(0, 4).each(function (index, element) {
                             article[index] = {};
                             article[index]["titre"] = $(element)
                                 .find("h3 a")
