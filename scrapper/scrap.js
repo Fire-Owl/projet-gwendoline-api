@@ -31,18 +31,18 @@ let promises = [];
                                 .find("h3 a")
                                 .text()
                                 .trim();
-                            article[index]["date"] = $(element)
-                                .find(".edgtf-post-info-date a span")
-                                .text();
-                            article[index]["accroche"] = $(element)
-                                .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
-                                .text();
                             article[index]["lien"] = $(element)
                                 .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
                                 .attr("href");
                             article[index]["thumbnail"] = $(element)
                                 .find("div:nth-child(1) > div:nth-child(2) img")
                                 .attr("data-lazy-src");
+                            article[index]["date"] = $(element)
+                                .find(".edgtf-post-info-date a span")
+                                .text();
+                            article[index]["description"] = $(element)
+                                .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
+                                .text();
                         });
 
                         return resolve(article);
