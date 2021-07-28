@@ -41,7 +41,7 @@ let promises = [];
                                 .find(".jeg_meta_date a")
                                 .text();
                             article[index]["description"] = $(element)
-                                .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
+                                .find(".jeg_post_excerpt p")
                                 .text();
                         });
 
