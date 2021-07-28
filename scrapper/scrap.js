@@ -32,11 +32,11 @@ let promises = [];
                                 .text()
                                 .trim();
                             article[index]["lien"] = $(element)
-                                .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
+                                .find("h3 a")
                                 .attr("href");
                             article[index]["thumbnail"] = $(element)
-                                .find("div:nth-child(1) > div:nth-child(2) img")
-                                .attr("data-lazy-src");
+                                .find(".wp-post-image")
+                                .attr("data-src");
                             article[index]["date"] = $(element)
                                 .find(".edgtf-post-info-date a span")
                                 .text();
