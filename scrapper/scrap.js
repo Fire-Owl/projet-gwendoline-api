@@ -38,7 +38,7 @@ let promises = [];
                                 .find(".wp-post-image")
                                 .attr("data-src");
                             article[index]["date"] = $(element)
-                                .find(".edgtf-post-info-date a span")
+                                .find(".jeg_meta_date a")
                                 .text();
                             article[index]["description"] = $(element)
                                 .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
