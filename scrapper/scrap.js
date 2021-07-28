@@ -7,7 +7,7 @@ const app = express();
 
 cron.schedule('*/0,10,20,30,40,50 * * * *', () => {
     console.log('cron refresh');
-
+ 
 let promises = [];
     
     app.get('/', function (req, res) {
@@ -17,6 +17,39 @@ let promises = [];
         promises.push(
             new Promise((resolve, reject) => {
                 request(
+                    
+                    "https://www.sportmag.fr/?s=handisport",
+                    function (error, response, body) {
+                        if (error) {
+                            reject.send(response.statusCode);
+                        }
+                        let article = [];
+                        let $ = cheerio.load(body);
+                        $("article").each(function (index, element) {
+                            article[index] = {};
+                            article[index]["titre"] = $(element)
+                                .find("h3 a")
+                                .text()
+                                .trim();
+                            article[index]["date"] = $(element)
+                                .find(".edgtf-post-info-date a span")
+                                .text();
+                            article[index]["accroche"] = $(element)
+                                .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
+                                .text();
+                            article[index]["lien"] = $(element)
+                                .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
+                                .attr("href");
+                            article[index]["thumbnail"] = $(element)
+                                .find("div:nth-child(1) > div:nth-child(2) img")
+                                .attr("data-lazy-src");
+                        });
+
+                        return resolve(article);
+                    }
+
+                    /*
+
                     "https://www.sportmag.fr/sport-handi",
                     function (error, response, body) {
                         if (error) {
@@ -36,9 +69,6 @@ let promises = [];
                             article[index]["accroche"] = $(element)
                                 .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
                                 .text();
-                            /* country[index]["auteur"] = $(element)
-                                .find(".edgtf-post-info-author-link")
-                                .attr("href"); */
                             article[index]["lien"] = $(element)
                                 .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
                                 .attr("href");
@@ -49,7 +79,7 @@ let promises = [];
 
                         return resolve(article);
                     }
-                );
+                 */);
             })
         );
 
