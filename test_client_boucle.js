@@ -1,5 +1,7 @@
 const divApi = document.getElementById('api');
-let inApiDiv = divApi.value;
+let inApiDiv = divApi.innerHTML;
+
+console.log('inApiDiv = ' + inApiDiv);
 
 function boucleJson(json) {
       /* divApi.innerHTML = json[0][0]['titre']; */
