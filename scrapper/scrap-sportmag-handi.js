@@ -1,53 +1,35 @@
-// CETTE PAGE DOIT RÉCUPÉRER LES 2 PREMIERS ARTICLES DE www.sportmag.fr/sport-handi
+const request = require('request');
+const cheerio = require('cheerio');
 
-const app = require("express")();
-const PORT = 3002;
-const request = require("request");
-const cheerio = require("cheerio");
-const fetch = require("isomorphic-fetch");
-const cron = require("node-cron");
+module.exports = function(results) {
+      request(
 
-// TEST REST API
-app.listen(PORT, () => console.log(`it's alive on http//localhost:${PORT}`));
-app.get("/coucou", (req, res) => {
-  /* console.log("function coucou");
-  res.raw('coucou function'); */
-  console.log(res);
-})
+            "https://www.sportmag.fr/?s=handisport",
+            function (error, response, body) {
+                  let article = [];
+                  let $ = cheerio.load(body);
+                  $("article").slice(0, 4).each(function (index, element) {
+                        article[index] = {};
+                        article[index]["titre"] = $(element)
+                        .find("h3 a")
+                        .text()
+                        .trim();
+                        article[index]["lien"] = $(element)
+                        .find("h3 a")
+                        .attr("href");
+                        article[index]["thumbnail"] = $(element)
+                        .find(".wp-post-image")
+                        .attr("data-src");
+                        article[index]["date"] = $(element)
+                        .find(".jeg_meta_date a")
+                        .text();
+                        article[index]["description"] = $(element)
+                        .find(".jeg_post_excerpt p")
+                        .text();
+                  });
 
-app.get("/", (req, res) =>
-  request(
-    "https://www.sportmag.fr/sport-handi",
-    function (error, response, body) {
-      if (error) {
-        res.send(response.statusCode);
-      }
-      var country = [];
-      var $ = cheerio.load(body);
-      $(".edgtf-post-example-item-three-item").each(function (index, element) {
-            country[index] = {};
-            country[index]["titre"] = $(element)
-                  .find("div.edgtf-post-example-item-three-item > div > div > h3:nth-child(1) > a:nth-child(1)")
-                  .text()
-                  .trim();
-            country[index]["date"] = $(element)
-                  .find(".edgtf-post-info-date a span")
-                  .text();
-            country[index]["accroche"] = $(element)
-                  .find("div.edgtf-post-example-item-three-item > div:nth-child(2) > div:nth-child(2) > p:nth-child(1)")
-                  .text();
-            /* country[index]["auteur"] = $(element)
-                  .find(".edgtf-post-info-author-link")
-                  .attr("href"); */
-            country[index]["lien"] = $(element)
-                  .find("div.edgtf-post-example-item-three-item > div:nth-child(1) > a:nth-child(3)")
-                  .attr("href");
-            country[index]["thumbnail"] = $(element)
-                  .find("div:nth-child(1) > div:nth-child(2) img")
-                  .attr("data-lazy-src");
-      });
+                  results.push(article);
+            }
+      );
+};
 
-      res.json(country);
-    }
-  )
-);

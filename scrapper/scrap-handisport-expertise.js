@@ -1,55 +1,44 @@
-const express = require('express');
 const request = require('request');
 const cheerio = require('cheerio');
-const app = express();
 
-app.get('/', function (req, res) {
-
-    let url = 'https://www.handisport.org/category/expertise/';
-
-    request(url, function (error, response, html) {
-        if (!error) {
-
-            let goalball = [];
-            let $ = cheerio.load(html);
-
-            //slice() permet de récupérer un nombre limité d'articles
+module.exports = function(results) {
+      
+    request(
+        "https://www.handisport.org/category/expertise/",
+        function (error, response, body) {
+            if (error) {
+                reject.send(response.statusCode);
+            }
+            let article = [];
+            let $ = cheerio.load(body);
             $(".col-md-4").slice(0, 4).each(function (index, element) {
-                goalball[index] = {};
-                goalball[index]["titre"] = $(element)
+                article[index] = {};
+                article[index]["titre"] = $(element)
                     .find("h2")
                     .text()
                     .trim();
 
-                goalball[index]["lien"] = $(element)
+                article[index]["lien"] = $(element)
                     .find("a")
                     .attr("href");
 
-                goalball[index]["thumbnail"] = $(element)
+                article[index]["thumbnail"] = $(element)
                     .find("a > div")
                     .attr("style").replace('background:url(\'', '').replace('\') no-repeat', '');
 
-                goalball[index]["date"] = $(element)
+                article[index]["date"] = $(element)
                     .find(".date-actu")
                     .text()
                     .trim();
 
-                goalball[index]["description"] = $(element)
+                article[index]["description"] = $(element)
                     .find("div.arch")
                     .text().replace(/\s\s+/g, '')
                     .trim();
 
             });
 
-            res.json(goalball);
-
+            results.push(article);
         }
-    });
-
-});
-
-
-
-app.listen('3001');
-console.log('API is running on http://localhost:3001'); module.exports = app;
-
+    );
+};
