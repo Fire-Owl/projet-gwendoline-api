@@ -1,0 +1,35 @@
+body{
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+pre.code{
+      background-color: rgb(36, 36, 36);
+      color: white;
+      padding: 2rem;
+      border-radius: 5px;
+      overflow-x: scroll;
+}
+
+/* CODE API */
+
+section.apiArt{
+      border: 1px solid red;
+      display: flex;
+      margin: 2rem 0;
+}
+#api a{
+      text-decoration: none;
+      color: black;
+}
+section.apiArt img{
+      width: 15rem;
+}
+section.apiArt .child{
+      position: relative;
+}
+section.apiArt .child:nth-child(2){
+      padding: 0 2rem;
+}
+section.apiArt hr{
+      width: 15rem;
+      position: absolute;
+}
