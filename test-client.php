@@ -9,7 +9,7 @@
 <body>
       <h1>API Scraper paralympique</h1>
       <h2>résultat attendu</h2>
-      <div id="api">zzz</div>
+      <div id="api"></div>
       <script src="test_client_boucle.js"></script>
       <script src="main.js"></script>
 </body>
