@@ -11,4 +11,5 @@ fetch('http://adrienr.promo-68.codeur.online:3000/')
 function displayJson(json) {
       console.log(json)
       console.log(json[2][0]['titre'])
+      boucleJson(json)
 }
