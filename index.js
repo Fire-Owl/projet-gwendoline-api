@@ -9,10 +9,9 @@ let promises = [];
 
 // TEST CRON toutes les 6 heures
 // cron.schedule("* **/6 ***", () => {
-  promises = [];
   /*------------------------------------------- REPONSE */
   app.get("/goalball_api/:sport", (req, res) => {
-  scrapper2();
+  // scrapper2();
   scraper(req.params.sport);
   // console.log(sport);
   Promise.all(promises)
@@ -29,7 +28,7 @@ let promises = [];
 
 function scraper(sport) {
 
-  console.log(sport);
+  promises = [];
   
   promises.push(
     new Promise((resolve, reject) => {
@@ -79,43 +78,75 @@ function scraper(sport) {
     })
     );
 
-}
-
-function scrapper2() {
-
-  promises.push(
-    new Promise((resolve, reject) => {
-      request(
-        "https://www.sportmag.fr/?s=handisport",
-        function (error, response, body) {
-if (error) {
-reject.send(response.statusCode);
-}
-let article = [];
-const $ = cheerio.load(body);
-
-$("article")
-.slice(0, 2)
-.each(function (index, element) {
-article[index] = {};
-article[index]["titre"] = $(element).find("h3 a").text().trim();
-article[index]["lien"] = $(element).find("h3 a").attr("href");
-article[index]["thumbnail"] = $(element)
-.find(".wp-post-image")
-.attr("data-src");
-article[index]["date"] = $(element).find(".jeg_meta_date a").text();
-article[index]["description"] = $(element)
-.find(".jeg_post_excerpt p")
-.text();
-});
-
-return resolve(article);
-}
-);
-})
-);
+    promises.push(
+      new Promise((resolve, reject) => {
+        request(
+          "https://www.sportmag.fr/?s=handisport",
+          function (error, response, body) {
+  if (error) {
+  reject.send(response.statusCode);
+  }
+  let article = [];
+  const $ = cheerio.load(body);
   
+  $("article")
+  .slice(0, 2)
+  .each(function (index, element) {
+  article[index] = {};
+  article[index]["titre"] = $(element).find("h3 a").text().trim();
+  article[index]["lien"] = $(element).find("h3 a").attr("href");
+  article[index]["thumbnail"] = $(element)
+  .find(".wp-post-image")
+  .attr("data-src");
+  article[index]["date"] = $(element).find(".jeg_meta_date a").text();
+  article[index]["description"] = $(element)
+  .find(".jeg_post_excerpt p")
+  .text();
+  });
+  
+  return resolve(article);
+  }
+  );
+  })
+  );
+
 }
+
+// function scrapper2() {
+
+//   promises.push(
+//     new Promise((resolve, reject) => {
+//       request(
+//         "https://www.sportmag.fr/?s=handisport",
+//         function (error, response, body) {
+// if (error) {
+// reject.send(response.statusCode);
+// }
+// let article = [];
+// const $ = cheerio.load(body);
+
+// $("article")
+// .slice(0, 2)
+// .each(function (index, element) {
+// article[index] = {};
+// article[index]["titre"] = $(element).find("h3 a").text().trim();
+// article[index]["lien"] = $(element).find("h3 a").attr("href");
+// article[index]["thumbnail"] = $(element)
+// .find(".wp-post-image")
+// .attr("data-src");
+// article[index]["date"] = $(element).find(".jeg_meta_date a").text();
+// article[index]["description"] = $(element)
+// .find(".jeg_post_excerpt p")
+// .text();
+// });
+
+// return resolve(article);
+// }
+// );
+// })
+// );
+  
+// }
 // console.log(sport);
 
 /*------------------------------------------- HANDISPORT */
