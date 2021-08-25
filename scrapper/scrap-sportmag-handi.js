@@ -1,10 +1,10 @@
 const request = require('request');
 const cheerio = require('cheerio');
 
-module.exports = function(results) {
+module.exports = function(results,search) {
       request(
 
-            "https://www.sportmag.fr/?s=handisport",
+            "https://www.sportmag.fr/?s=handisport+"+search,
             function (error, response, body) {
                   let article = [];
                   let $ = cheerio.load(body);
@@ -31,5 +31,6 @@ module.exports = function(results) {
                   results.push(article);
             }
       );
+      console.log("https://www.sportmag.fr/?s=handisport+"+search);
 };
 

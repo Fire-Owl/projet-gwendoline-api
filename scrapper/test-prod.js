@@ -7,17 +7,21 @@ const handisportGoalball = require('./scrap-handisport-goalball');
 const handisportExpertise = require('./scrap-handisport-expertise');
 app.use(cors());
 
+var search = "natation";
+
 let results = [];
 
 cron.schedule('* */12 * * *', () => {
-    scrapp();
+    scrapp(search);
 });
 
-function scrapp() {
+
+function scrapp(search) {
     console.log('scrapp');
+    console.log(search);
     results = [];
 
-    sportmag(results);
+    sportmag(results,search);
     handisportGoalball(results);
     handisportExpertise(results);
 }
