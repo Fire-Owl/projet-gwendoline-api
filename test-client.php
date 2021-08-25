@@ -76,6 +76,13 @@ section.apiArt hr{
       </pre>
       <h2>notes des développeurs</h2>
       <p>vous pouvez bien sur modifier le css facilement, quand a la structure html, vous pouvez la modifier dans le script, dans la function boucleJson (divApi.innerHTML = inApiDiv + inséré le code html qui construit les cards).</p>
+      <h2>notes des développeurs concernant l'installation de l'API</h2>
+      <p>Configuration du server (problème http/https) : si vous ne pouvez pas accédé aux données pour installer l'API, que votre server apache est en https et que node est en http, vous pouvez configurer votre server en modifiant le fichier logs/apache</p>
+      <pre class="code">
+ProxyRequests On
+ProxyPass "/projet-gwendoline-api/scrapper/node" "http://localhost:3000/"
+ProxyPassReverse "/projet-gwendoline-api/scrapper/node" "http://localhost:3000/"
+      </pre>
       <h2>résultat attendu</h2>
       <div id="api"></div>
       <script src="test_client_boucle.js"></script>
