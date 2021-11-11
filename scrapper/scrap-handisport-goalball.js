@@ -6,7 +6,7 @@ module.exports = function(results) {
         "http://www.handisport.org/?s=goalball",
         function (error, response, body) {
             if (error) {
-                reject.send(response.statusCode);
+                  return console.error('fetch fail handisport-goalball: ', error);
             }
             let article = [];
             let $ = cheerio.load(body);

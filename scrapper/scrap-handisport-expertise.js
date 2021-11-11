@@ -7,7 +7,7 @@ module.exports = function(results) {
         "https://www.handisport.org/category/expertise/",
         function (error, response, body) {
             if (error) {
-                reject.send(response.statusCode);
+                  return console.error('fetch fail handisport-expertise: ', error);
             }
             let article = [];
             let $ = cheerio.load(body);
