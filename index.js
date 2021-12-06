@@ -7,8 +7,8 @@ const cron = require("node-cron");
 let promises = [];
 
 // TEST CRON toutes les 6 heures
-// cron.schedule("* * */6 * * *", () => {
-// promises = [];
+cron.schedule("* * */6 * * *", () => {
+promises = [];
 
 function scrap(sport) {
   promises = [];
@@ -100,7 +100,7 @@ function scrap(sport) {
     })
   );
 }
-// });
+});
 
 /*------------------------------------------- REPONSE */
 app.get("/goalball_api/:sport", (req, res) => {
