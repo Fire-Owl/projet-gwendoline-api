@@ -6,6 +6,8 @@ const cron = require("node-cron");
 
 let promises = [];
 
+console.log("bruh");
+
 // TEST CRON toutes les 6 heures
 cron.schedule("* * */6 * * *", () => {
 promises = [];
